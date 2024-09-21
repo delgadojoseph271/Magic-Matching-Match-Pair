@@ -1,5 +1,5 @@
 import pygame
-
+import time
 class cartas:
     estado = False
     tamanio = (10, 10)
@@ -17,6 +17,7 @@ class cartas:
         self.color_activo = color_activo  # color del reverso de la carta cuando está activada
         self.rect = pygame.Rect(x, y, ancho, alto)
         self.pantalla = pantalla
+        self.clickeable = True
 
     def dibujar(self):
         # Usa el color según el estado de la carta
@@ -30,9 +31,17 @@ class cartas:
             self.pantalla.blit(texto, (self.rect.x + 10, self.rect.y + 10))
             
     def colisionaConPuntos(self, pos_mouse):
-            #Verifica si el mouse está sobre la carta
+    # Verifica si la carta es clickeable antes de detectar la colisión
+        if self.clickeable:
             return self.rect.collidepoint(pos_mouse)
+        return False
+    
     def cambiarEstado(self):
         # Invertir el estado de la carta
-        print('El estado de la carta es: {}'.format(self.estado))
-        self.estado = not self.estado
+        #print('El estado de la carta es: {}'.format(self.estado))
+        if self.clickeable:
+            self.estado = not self.estado
+
+    def resetear(self):
+        self.clickeable = True
+        self.estado = False

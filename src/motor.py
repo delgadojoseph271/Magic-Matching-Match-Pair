@@ -1,10 +1,10 @@
 from settings import ALTO, ANCHO, CLOCK, BLANCO, ROJO, AZUL, NEGRO
-
-from utils.generarMatriz import  generarMatriz
+from utils.generarMatriz import generarMatriz
 from utils.desordenarMatriz import desordenarMatriz
 from utils.verificarCartasActivadas import verificarCartasActivadas
 from utils.desactivarCartas import desactivarCartas
-import pygame 
+import pygame
+
 def motor():
     pygame.init()
     # Maneja el tamaño de la pantalla
@@ -15,15 +15,33 @@ def motor():
     COLUMNAS = 2
     FILAS = 3
 
-    # Crear la matriz de cartas
+    # Crear y desordenar la matriz de cartas
     matriz_cartas = generarMatriz(pantalla=pantalla, filas=FILAS, columnas=COLUMNAS)
-    #desordenar una matriz
-    matriz_cartas = desordenarMatriz(matriz_cartas) #de momento nose porque no lo desordena
-    # Ciclo principal del juego
+    matriz_cartas = desordenarMatriz(matriz_cartas)
+
+    pila = []  # Pila de cartas seleccionadas
     corriendo = True
+
+    # Temporizador
+    fuente = pygame.font.SysFont('Consolas', 20)
+    tiempo_inicio = pygame.time.get_ticks()  # Tiempo de inicio del juego
+    juego_terminado = False
+    tiempo_final = None
+
     while corriendo:
-        # Pintar la pantalla de blanco 
         pantalla.fill(BLANCO)
+
+        # Obtener tiempo transcurrido
+        if not juego_terminado:
+            tiempo_actual = pygame.time.get_ticks()
+            tiempo_transcurrido = (tiempo_actual - tiempo_inicio) / 1000  # En segundos
+        else:
+            tiempo_transcurrido = tiempo_final
+
+        # Mostrar cronómetro
+        texto_tiempo = fuente.render(f'Tiempo: {tiempo_transcurrido:.2f} s', True, (0, 0, 255))
+        pantalla.blit(texto_tiempo, (10, 10))  # Dibujar el cronómetro en la pantalla
+
         # Dibujar la matriz de cartas
         for fila in matriz_cartas:
             for carta in fila:
@@ -33,27 +51,36 @@ def motor():
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 corriendo = False
-            if evento.type == pygame.MOUSEBUTTONDOWN:
-                # Obtener la posición del clic
+            if evento.type == pygame.MOUSEBUTTONDOWN and not juego_terminado:
                 pos_mouse = pygame.mouse.get_pos()
-                
-                # Verificar si alguna carta fue clickeada
                 for fila in matriz_cartas:
                     for carta in fila:
                         if carta.colisionaConPuntos(pos_mouse=pos_mouse):
-                            carta.cambiarEstado()
-                            #necesito una funcion que cree una pila de 2 elementos si los valores no son iguales los vuelve false
+                            if len(pila) < 2:
+                                pila.append(carta)
+                                print(pila)
+                                print(len(pila))
 
-        # Verificar las cartas activadas
-        valor_pares, cartas_activadas = verificarCartasActivadas(matriz_cartas)
-        if valor_pares is not None:
-            print(f"Hay al menos 2 cartas activadas con el valor: {valor_pares}")
-            desactivarCartas(matriz_cartas, valor_pares)
-        else:
-            print("No hay pares de cartas activadas con el mismo valor.")
+                            carta.cambiarEstado()
+                            if len(pila) == 2:
+                                if verificarCartasActivadas(pila):
+                                    desactivarCartas(pila)
+                                    pila.clear()
+                                else:
+                                    pila[1].dibujar()
+                                    pila[0].resetear()
+                                    pila[1].resetear()
+                                    pila.clear()
+
+                            # Verificar si todas las cartas están activadas (se ha ganado)
+                            if all([carta.estado for fila in matriz_cartas for carta in fila]):
+                                print('¡Has ganado!')
+                                juego_terminado = True
+                                tiempo_final = tiempo_transcurrido  # Guardar el tiempo final
+                                
 
         # Actualizar la pantalla
         pygame.display.update()
-        CLOCK.tick(60)
+        CLOCK.tick(3)  # Aumentar el framerate para un cronómetro más fluido
 
 motor()
