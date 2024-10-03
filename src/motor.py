@@ -67,7 +67,7 @@ def motor():
                                     desactivarCartas(pila)
                                     pila.clear()
                                 else:
-                                    pila[1].dibujar()
+                                    #pila[1].dibujar()
                                     pila[0].resetear()
                                     pila[1].resetear()
                                     pila.clear()
@@ -81,6 +81,6 @@ def motor():
 
         # Actualizar la pantalla
         pygame.display.update()
-        CLOCK.tick(3)  # Aumentar el framerate para un cronómetro más fluido
+        CLOCK.tick(144)  # Aumentar el framerate para un cronómetro más fluido
 
 motor()
