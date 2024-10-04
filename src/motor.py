@@ -1,8 +1,8 @@
-from settings import ALTO, ANCHO, CLOCK, BLANCO, ROJO, AZUL, NEGRO
-from utils.generarMatriz import generarMatriz
-from utils.desordenarMatriz import desordenarMatriz
-from utils.verificarCartasActivadas import verificarCartasActivadas
-from utils.desactivarCartas import desactivarCartas
+from src.settings import ALTO, ANCHO, CLOCK, BLANCO, ROJO, AZUL, NEGRO
+from src.utils.generarMatriz import generarMatriz
+from src.utils.desordenarMatriz import desordenarMatriz
+from src.utils.verificarCartasActivadas import verificarCartasActivadas
+from src.utils.desactivarCartas import desactivarCartas
 import pygame
 
 def motor():
@@ -83,4 +83,4 @@ def motor():
         pygame.display.update()
         CLOCK.tick(3)  # Aumentar el framerate para un cronómetro más fluido
 
-motor()
+#motor()
