@@ -21,6 +21,14 @@ fondo= pygame.image.load(fondo_path)
 #bucle 
 def menu_inicio():
     pygame.init()
+
+    # Inicialización del mixer de audio
+    pygame.mixer.init()
+    
+    # Cargar sonido de fondo
+    pygame.mixer.music.load("./audio/musica.wav") 
+    # Reproducir sonido indefinidamente en segundo plano
+    pygame.mixer.music.play(-1)  
     pantalla = pygame.display.set_mode((ANCHO,ALTO))
     pygame.display.set_caption("Pantalla de Inicio")
     boton_iniciar= Boton(300, 200, 200, 50, "Jugar", ROSADO, MORADO)
@@ -42,5 +50,4 @@ def menu_inicio():
         CLOCK.tick(3)
     pygame.quit()
     sys.exit()
-        # Retorna una opción seleccionada
-
+    # Retorna una opción seleccionada
