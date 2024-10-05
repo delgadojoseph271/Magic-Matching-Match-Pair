@@ -14,6 +14,11 @@ from src.Boton import Boton
     #crear botones
 
 #bucle 
+#imagen
+#imagen
+fondo_path= os.path.join('img/LOL.png')
+fondo= pygame.image.load(fondo_path)
+#bucle 
 def menu_inicio():
     pygame.init()
     pantalla = pygame.display.set_mode((ANCHO,ALTO))
@@ -22,7 +27,7 @@ def menu_inicio():
     boton_salir = Boton(300, 300, 200, 50, "Salir", ROSADO, MORADO)
     corriendo = True
     while corriendo:
-        pantalla.fill(AMARILLO)
+        pantalla.blit(fondo,(0,0))
     #dibuja los botones 
         boton_iniciar.dibujar(pantalla)
         boton_salir.dibujar(pantalla)
