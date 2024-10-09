@@ -1,5 +1,6 @@
 from src.ux.pagina_de_inicio import menu_inicio
 from src.motor import motor
+from src.ux.pagina_final import pantalla_final
 
 
 def iniciar_juego():
@@ -10,6 +11,12 @@ if __name__ == "__main__":
     # Iniciar la interfaz de usuario
     opcion = menu_inicio()
     if opcion == 'inicio':
-        motor()
+        final = motor()
+        if final=='fin':
+            opcion_final = pantalla_final()
+            if opcion_final== 'reiniciar':
+                motor()
+            elif opcion_final=='salir':
+                pass
     if opcion == 'salir':
         pass
