@@ -8,7 +8,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'
 from src.settings import ANCHO, ALTO, FPS, AMARILLO, ROSADO,BLANCO,CELESTE,CLOCK,VERDECITO,MORADO
 from src.Boton import Boton
 # Importaciones personalizadas
-from src.utils.Boton import Boton
 from src.settings import ANCHO, ALTO, FPS, BLANCO, ROJO, AZUL
 
 # Resto del código
