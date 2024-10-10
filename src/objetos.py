@@ -28,19 +28,21 @@ class cartas:
         if self.animando:
             # Animación de volteo
             t = (pygame.time.get_ticks() - self.tiempo_inicio) / (self.duracion_animacion * 1000)  # Tiempo en segundos
+            
             if t >= 1:  # Animación completada
                 t = 1
                 self.animando = False
-                self.estado = not self.estado  # Cambiar el estado solo al finalizar la animación
             
             # Escalar en el eje X para crear el efecto de voltear
             if self.estado:
                 # Mostrar imagen frontal
+                #print('ejecutando animacion frontal')
                 escala_x = 1 - t  # Comprimir en el eje X
                 img_redimensionada = pygame.transform.scale(self.img, (int(self.rect.width * escala_x), self.rect.height))
                 self.pantalla.blit(img_redimensionada, (self.rect.x + (self.rect.width * (1 - escala_x) / 2), self.rect.y))
             else:
                 # Mostrar reverso
+                #print('ejecutando animacion reverso')
                 escala_x = t  # Expandir en el eje X
                 reverso_redimensionado = pygame.transform.scale(self.reverso, (int(self.rect.width * escala_x), self.rect.height))
                 self.pantalla.blit(reverso_redimensionado, (self.rect.x + (self.rect.width * (1 - escala_x) / 2), self.rect.y))
@@ -65,6 +67,7 @@ class cartas:
             self.animando = True
             self.tiempo_inicio = pygame.time.get_ticks()  # Marca el tiempo de inicio
             self.progreso_animacion = 0
+            self.estado = not self.estado
 
     def resetear(self):
         self.clickeable = True
