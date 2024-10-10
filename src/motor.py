@@ -19,6 +19,7 @@ def motor():
     matriz_cartas = generarMatriz(pantalla=pantalla, filas=FILAS, columnas=COLUMNAS)
     matriz_cartas = desordenarMatriz(matriz_cartas)
 
+
     pila = []  # Pila de cartas seleccionadas
     corriendo = True
 
@@ -46,7 +47,8 @@ def motor():
         for fila in matriz_cartas:
             for carta in fila:
                 carta.dibujar()
-
+                #print('se dibujo')
+        #print('.')
         # Manejar eventos
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
@@ -57,30 +59,46 @@ def motor():
                     for carta in fila:
                         if carta.colisionaConPuntos(pos_mouse=pos_mouse):
                             if len(pila) < 2:
-                                pila.append(carta)
-                                print(pila)
-                                print(len(pila))
-
-                            carta.cambiarEstado()
+                                if carta in pila:
+                                    print('antes: ',carta.estado)
+                                    carta.cambiarEstado()
+                                    print('depues: ',carta.estado)
+                                    pila.clear()
+                                    print('limpio')
+                                    print(pila)
+                                else:
+                                    pila.append(carta)
+                                    print('antes desde else linia 69:  ',carta.estado)
+                                    carta.cambiarEstado()
+                                    print('depues desde else linia 71: ',carta.estado)
+                                    print('objetos de la pila linia 72',pila)
+                                    print('tamano de la pila linia 73',len(pila))
+                                    
+                            
+                            
                             if len(pila) == 2:
+                                print('estados de carta linia 78' ,pila[0].estado,pila[1].estado)
                                 if verificarCartasActivadas(pila):
                                     desactivarCartas(pila)
                                     pila.clear()
                                 else:
-                                    pila[1].dibujar()
-                                    pila[0].resetear()
-                                    pila[1].resetear()
+                                    print('entro al else')
+                                    pila[0].cambiarEstado()
+                                    pila[1].cambiarEstado()
+                                    print(pila[0].estado,pila[1].estado)
                                     pila.clear()
+                                    print(pila)
 
                             # Verificar si todas las cartas están activadas (se ha ganado)
+                            print(([carta.estado for fila in matriz_cartas for carta in fila]))
                             if all([carta.estado for fila in matriz_cartas for carta in fila]):
                                 print('¡Has ganado!')
                                 juego_terminado = True
                                 tiempo_final = tiempo_transcurrido  # Guardar el tiempo final
-                                
+                            print('\n terminacion del ciclo \n')
 
         # Actualizar la pantalla
         pygame.display.update()
-        CLOCK.tick(3)  # Aumentar el framerate para un cronómetro más fluido
+        CLOCK.tick(144)  # Aumentar el framerate para un cronómetro más fluido
 
 #motor()
