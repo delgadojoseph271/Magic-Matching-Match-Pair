@@ -36,8 +36,6 @@ def pantalla_final():
             if boton_salir.es_clicleado(evento):
                 return 'salir'
         pygame.display.update()
-        CLOCK.tick(3)
+        CLOCK.tick(60)
     pygame.quit()
     sys.exit()
-
-pantalla_final()

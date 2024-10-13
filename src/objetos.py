@@ -4,7 +4,7 @@ class cartas:
     estado = False
     tamanio = (10, 10)
     
-    def __init__(self, pantalla, tamanio=(80, 80), posicion=(0, 0), valor=0, estado=False, relleno=None, img=None, color=(255, 255, 255), color_activo=(0, 255, 0), duracion_animacion=0.2) -> None:
+    def __init__(self, pantalla, tamanio=(80, 120), posicion=(0, 0), valor=0, estado=False, relleno=None, img=None, color=(255, 255, 255), color_activo=(0, 255, 0), duracion_animacion=0.2) -> None:
         ancho = tamanio[0]
         alto = tamanio[1]
         x = posicion[0]
@@ -32,6 +32,7 @@ class cartas:
             if t >= 1:  # Animación completada
                 t = 1
                 self.animando = False
+                print(self.animando)
             
             # Escalar en el eje X para crear el efecto de voltear
             if self.estado:
