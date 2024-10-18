@@ -50,7 +50,7 @@ Si deseas contribuir:
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto fue creado con fines educativos como parte de un trabajo universitario. Los personajes y cualquier material relacionado con My Little Pony son propiedad de Hasbro, y este proyecto no pretende infringir esos derechos. El código aquí presentado no debe ser utilizado para fines comerciales ni de distribución. Para cualquier consulta, por favor revisa las políticas de uso justo y derechos de autor aplicables.
 
 ## Autores
 
